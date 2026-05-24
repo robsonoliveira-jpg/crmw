@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRM no WhatsApp | Seu WhatsApp vira um CRM para vender mais</title>
+    <meta
+      name="description"
+      content="CRM no WhatsApp ajuda equipes de marketing e vendas a organizar conversas, acelerar o funil e fechar mais negócios."
+    />
+    <style>
+      :root {
+        --bg: #070b18;
+        --card: rgba(17, 24, 49, 0.68);
+        --muted: #a8b7d9;
+        --text: #f4f7ff;
+        --primary: #6d8dff;
+        --primary-dark: #4f73f0;
+        --success: #41d88d;
+        --border: rgba(132, 160, 255, 0.28);
+        --cyan: #47d6ff;
+        --purple: #9a7bff;
+        --radius: 16px;
+        --shadow: 0 18px 45px rgba(1, 8, 25, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, "Helvetica Neue", sans-serif;
+        background:
+          radial-gradient(circle at 12% 8%, rgba(109, 141, 255, 0.24), transparent 30%),
+          radial-gradient(circle at 88% 0%, rgba(71, 214, 255, 0.16), transparent 28%),
+          radial-gradient(circle at 50% 110%, rgba(154, 123, 255, 0.14), transparent 35%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        padding-top: 88px;
+      }
+      .container {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+      }
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        background: rgba(7, 11, 24, 0.72);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      header {
+        padding: 16px 0;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.92rem;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      .logo {
+        font-weight: 700;
+        font-size: 1.08rem;
+        letter-spacing: 0.2px;
+      }
+      .btn {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        box-shadow: 0 10px 24px rgba(79, 115, 240, 0.34);
+        transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      }
+      .btn:hover {
+        background: var(--primary-dark);
+        box-shadow: 0 14px 28px rgba(79, 115, 240, 0.4);
+        transform: translateY(-2px);
+      }
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        box-shadow: none;
+      }
+      .btn:focus-visible {
+        outline: 3px solid rgba(91, 140, 255, 0.45);
+        outline-offset: 2px;
+      }
+      .hero {
+        padding: 28px 0 64px;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 28px;
+        align-items: center;
+      }
+      .badge {
+        display: inline-block;
+        background: linear-gradient(90deg, rgba(109, 141, 255, 0.2), rgba(71, 214, 255, 0.12));
+        border: 1px solid rgba(143, 166, 255, 0.45);
+        color: #d4e0ff;
+        padding: 6px 10px;
+        border-radius: 99px;
+        font-size: 0.82rem;
+        margin-bottom: 12px;
+      }
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        max-width: 18ch;
+      }
+      .subtitle {
+        color: var(--muted);
+        font-size: 1.08rem;
+        margin-bottom: 22px;
+        max-width: 60ch;
+      }
+      .hero-cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .proof {
+        margin-top: 20px;
+        font-size: 0.92rem;
+        color: #bcd0ff;
+      }
+      .card {
+        background: linear-gradient(180deg, rgba(29, 40, 79, 0.7), rgba(17, 24, 49, 0.55));
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: var(--shadow);
+      }
+      .card:hover {
+        border-color: rgba(149, 173, 255, 0.45);
+        transform: translateY(-2px);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+      .hero aside.card {
+        background: linear-gradient(180deg, rgba(30, 44, 92, 0.78), rgba(18, 28, 57, 0.66));
+      }
+      .dashboard {
+        overflow: hidden;
+      }
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .dot-group {
+        display: flex;
+        gap: 6px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(219, 230, 255, 0.5);
+      }
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 12px 0;
+      }
+      .mini-kpi {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(156, 178, 255, 0.25);
+        border-radius: 10px;
+        padding: 10px;
+      }
+      .mini-kpi span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+      .mini-kpi strong {
+        display: block;
+        margin-top: 4px;
+        font-size: 1rem;
+      }
+      .pipeline {
+        margin-top: 10px;
+      }
+      .bar {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        margin: 8px 0;
+      }
+      .bar > i {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--primary), var(--cyan));
+      }
+      .bar-label {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+      .logo-strip {
+        padding-top: 24px;
+      }
+      .logos {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 12px;
+      }
+      .logo-pill {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 999px;
+        padding: 10px 14px;
+        text-align: center;
+        color: #d8e4ff;
+        font-size: 0.85rem;
+      }
+      .metrics {
+        padding-top: 24px;
+      }
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .metric-card {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 14px;
+        padding: 16px;
+      }
+      .metric-value {
+        font-size: 1.45rem;
+        font-weight: 700;
+      }
+      .metric-label {
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .checklist li {
+        margin: 10px 0;
+        padding-left: 28px;
+        position: relative;
+      }
+      .checklist li::before {
+        content: "✦";
+        color: var(--success);
+        font-weight: 700;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      section {
+        padding: 56px 0;
+      }
+      section:nth-of-type(even) {
+        background: linear-gradient(
+          180deg,
+          rgba(109, 141, 255, 0.06),
+          rgba(255, 255, 255, 0)
+        );
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(1.5rem, 4vw, 2.1rem);
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+      }
+      .section-intro {
+        color: var(--muted);
+        margin-bottom: 24px;
+        max-width: 68ch;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .feature h3,
+      .price h3 {
+        margin-top: 0;
+      }
+      .feature p,
+      .price p,
+      .faq p {
+        color: var(--muted);
+      }
+      .feature h3,
+      .price h3,
+      .faq h3 {
+        line-height: 1.3;
+      }
+      .steps .step {
+        margin-bottom: 12px;
+      }
+      .quote {
+        font-style: italic;
+        margin: 0 0 10px;
+        color: #dbe6ff;
+      }
+      .author {
+        font-size: 0.9rem;
+        color: #c6d6f8;
+      }
+      .price {
+        position: relative;
+      }
+      .price .tag {
+        position: absolute;
+        top: -10px;
+        right: 12px;
+        background: linear-gradient(90deg, rgba(79, 115, 240, 0.3), rgba(71, 214, 255, 0.22));
+        color: #e1e9ff;
+        border: 1px solid rgba(126, 156, 255, 0.55);
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+      }
+      .value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 10px 0;
+        line-height: 1.2;
+      }
+      .faq h3 {
+        margin-bottom: 8px;
+      }
+      .final-cta {
+        text-align: center;
+      }
+      .icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+        background: linear-gradient(135deg, rgba(109, 141, 255, 0.25), rgba(71, 214, 255, 0.16));
+        border: 1px solid rgba(143, 166, 255, 0.45);
+      }
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 24px 0 36px;
+        color: var(--muted);
+        text-align: center;
+      }
+      @media (max-width: 1024px) {
+        section {
+          padding: 48px 0;
+        }
+        .card {
+          padding: 20px;
+        }
+      }
+      @media (max-width: 860px) {
+        .hero,
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .metrics-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .logos {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          padding-top: 24px;
+        }
+        .hero-cta .btn {
+          width: 100%;
+          text-align: center;
+        }
+        h1 {
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <header class="container">
+        <div class="topbar">
+          <div class="logo">CRM no WhatsApp</div>
+          <nav class="nav-links">
+            <a href="#metricas">Métricas</a>
+            <a href="#clientes">Clientes</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#planos">Planos</a>
+          </nav>
+          <a class="btn btn-secondary" href="#planos">Ver planos</a>
+        </div>
+      </header>
+    </div>
+
+    <main>
+      <section class="hero container">
+        <div>
+          <span class="badge">Para times de marketing e vendas</span>
+          <h1>Seu WhatsApp vira um CRM para vender mais e com previsibilidade</h1>
+          <p class="subtitle">
+            Organize contatos, etapas do funil, tarefas e follow-ups sem sair das conversas.
+            Tenha mais controle comercial e menos oportunidades perdidas.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#cta-final">Quero começar agora</a>
+            <a class="btn btn-secondary" href="#como-funciona">Como funciona</a>
+          </div>
+          <p class="proof">Ideal para operações que vendem diariamente pelo WhatsApp.</p>
+        </div>
+
+        <aside class="card dashboard">
+          <div class="dashboard-header">
+            <strong>Dashboard Comercial</strong>
+            <div class="dot-group">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <div class="mini-kpi">
+              <span>Leads ativos</span>
+              <strong>248</strong>
+            </div>
+            <div class="mini-kpi">
+              <span>Follow-ups hoje</span>
+              <strong>37</strong>
+            </div>
+            <div class="mini-kpi">
+              <span>Taxa de resposta</span>
+              <strong>61%</strong>
+            </div>
+            <div class="mini-kpi">
+              <span>Negócios fechados</span>
+              <strong>R$ 82k</strong>
+            </div>
+          </div>
+          <div class="pipeline">
+            <div class="bar-label"><span>Novo lead</span><span>74</span></div>
+            <div class="bar"><i style="width: 78%"></i></div>
+            <div class="bar-label"><span>Em proposta</span><span>46</span></div>
+            <div class="bar"><i style="width: 55%"></i></div>
+            <div class="bar-label"><span>Fechamento</span><span>19</span></div>
+            <div class="bar"><i style="width: 31%"></i></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="clientes" class="container logo-strip">
+        <p class="section-intro">Times que já confiam no CRM no WhatsApp</p>
+        <div class="logos">
+          <div class="logo-pill">NovaMídia</div>
+          <div class="logo-pill">Comercial X</div>
+          <div class="logo-pill">GrowthLab</div>
+          <div class="logo-pill">VendasPro</div>
+          <div class="logo-pill">Agência Latitude</div>
+        </div>
+      </section>
+
+      <section id="metricas" class="container metrics">
+        <h2>Métricas que importam para o seu time</h2>
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <div class="metric-value">+35%</div>
+            <div class="metric-label">mais follow-ups executados no prazo</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-value">-42%</div>
+            <div class="metric-label">redução em leads esquecidos no funil</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-value">+28%</div>
+            <div class="metric-label">ganho médio em conversão comercial</div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-value">2,3x</div>
+            <div class="metric-label">mais visibilidade da operação de vendas</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="container">
+        <h2>O problema que resolvemos</h2>
+        <p class="section-intro">
+          Vender pelo WhatsApp é rápido, mas sem processo vira caos: leads se perdem, conversas
+          ficam sem retorno e o time não sabe exatamente em que etapa cada oportunidade está.
+        </p>
+        <div class="grid-3">
+          <article class="card feature">
+            <div class="icon">💬</div>
+            <h3>Dor #1</h3>
+            <p>Conversas importantes se perdem no volume de mensagens do dia.</p>
+          </article>
+          <article class="card feature">
+            <div class="icon">⏱️</div>
+            <h3>Dor #2</h3>
+            <p>Sem follow-up no momento certo, oportunidades esfriam e não convertem.</p>
+          </article>
+          <article class="card feature">
+            <div class="icon">📉</div>
+            <h3>Dor #3</h3>
+            <p>Planilhas e CRMs tradicionais geram retrabalho e baixa adoção do time.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="como-funciona" class="container steps">
+        <h2>Como funciona</h2>
+        <p class="section-intro">Três passos para transformar conversa em venda.</p>
+        <div class="grid-3">
+          <article class="card step">
+            <div class="icon">🔌</div>
+            <h3>1) Configure em minutos</h3>
+            <p>Conecte seu WhatsApp e comece sem mudar a rotina comercial do seu time.</p>
+          </article>
+          <article class="card step">
+            <div class="icon">🧭</div>
+            <h3>2) Ative o método</h3>
+            <p>As conversas viram pipeline automaticamente com etapas claras de funil.</p>
+          </article>
+          <article class="card step">
+            <div class="icon">🚀</div>
+            <h3>3) Escale resultados</h3>
+            <p>Receba sugestões de follow-up por IA e tarefas para manter o ritmo de fechamento.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container">
+        <h2>Por que escolher o CRM no WhatsApp</h2>
+        <div class="grid-2">
+          <article class="card feature">
+            <div class="icon">📱</div>
+            <h3>WhatsApp como centro da operação</h3>
+            <p>Você vende onde o cliente já responde, sem depender de ferramentas paralelas.</p>
+          </article>
+          <article class="card feature">
+            <div class="icon">📊</div>
+            <h3>Funil de vendas automático</h3>
+            <p>Visualize cada oportunidade por etapa e priorize o que realmente fecha.</p>
+          </article>
+          <article class="card feature">
+            <div class="icon">🤖</div>
+            <h3>IA para follow-ups sugeridos</h3>
+            <p>Saiba a melhor próxima mensagem para aumentar resposta e conversão.</p>
+          </article>
+          <article class="card feature">
+            <div class="icon">✅</div>
+            <h3>Tarefas criadas a partir das conversas</h3>
+            <p>Compromissos viram ações para o time executar sem esquecer nenhum detalhe.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container">
+        <h2>Prova social</h2>
+        <p class="section-intro">Quem já usa, recomenda.</p>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">⭐</div>
+            <p class="quote">“Saímos do caos no WhatsApp para um processo comercial previsível em poucas semanas.”</p>
+            <p class="author">— Mariana, Head de Marketing</p>
+          </article>
+          <article class="card">
+            <div class="icon">📈</div>
+            <p class="quote">“Com os follow-ups sugeridos por IA, nosso time voltou a conversar com leads que estavam parados.”</p>
+            <p class="author">— Rafael, Líder de Vendas</p>
+          </article>
+          <article class="card">
+            <div class="icon">⚡</div>
+            <p class="quote">“A melhor parte foi a adoção: todo mundo já usava WhatsApp, então o time pegou rápido.”</p>
+            <p class="author">— Juliana, Operações Comerciais</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="planos" class="container">
+        <h2>Planos simples e transparentes</h2>
+        <p class="section-intro">Escolha o plano ideal para seu momento.</p>
+        <div class="grid-3">
+          <article class="card price">
+            <h3>Starter</h3>
+            <p>Para quem está começando.</p>
+            <div class="value">R$ 199/usuário</div>
+            <ul class="checklist">
+              <li>CRM no WhatsApp</li>
+              <li>Pipeline básico</li>
+              <li>Gestão inicial de oportunidades</li>
+            </ul>
+          </article>
+          <article class="card price">
+            <span class="tag">Mais escolhido</span>
+            <h3>Pro</h3>
+            <p>Para crescer com consistência.</p>
+            <div class="value">A partir de R$ 199/usuário</div>
+            <ul class="checklist">
+              <li>Tudo do Starter</li>
+              <li>Follow-ups sugeridos por IA</li>
+              <li>Criação de tarefas por conversa</li>
+            </ul>
+          </article>
+          <article class="card price">
+            <h3>Scale</h3>
+            <p>Para operações e times maiores.</p>
+            <div class="value">Sob consulta</div>
+            <ul class="checklist">
+              <li>Customizações de processo</li>
+              <li>Suporte prioritário</li>
+              <li>Condições especiais por volume</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="container faq">
+        <h2>Perguntas frequentes</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Em quanto tempo vejo resultado?</h3>
+            <p>Você já começa a organizar o funil desde o primeiro dia. Em poucas semanas, o time ganha mais velocidade e previsibilidade.</p>
+          </article>
+          <article class="card">
+            <h3>Preciso de conhecimento técnico?</h3>
+            <p>Não. A experiência é pensada para equipes comerciais e de marketing, sem necessidade de setup técnico complexo.</p>
+          </article>
+          <article class="card">
+            <h3>Existe garantia?</h3>
+            <p>Você pode definir aqui a política de garantia que preferir (ex.: 7 ou 15 dias).</p>
+          </article>
+          <article class="card">
+            <h3>Posso cancelar quando quiser?</h3>
+            <p>Sim, o cancelamento é simples e sem burocracia, conforme as condições do seu plano.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="cta-final" class="container final-cta">
+        <div class="card">
+          <h2>Pronto para transformar seu WhatsApp em um CRM que gera vendas?</h2>
+          <p class="section-intro">
+            Comece hoje e organize seu processo comercial para escalar resultados com o time.
+          </p>
+          <a class="btn" href="https://example.com">Quero começar agora</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        © <span id="year"></span> CRM no WhatsApp. Todos os direitos reservados.
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
