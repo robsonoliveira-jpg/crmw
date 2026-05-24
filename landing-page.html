@@ -833,6 +833,15 @@
       });
       function submitForm(e) {
         e.preventDefault();
+        const lead = {
+          nome: document.getElementById("nome").value,
+          email: document.getElementById("email").value,
+          whatsapp: document.getElementById("wpp").value,
+          data: new Date().toLocaleString("pt-BR")
+        };
+        const leads = JSON.parse(localStorage.getItem("crmw_leads") || "[]");
+        leads.unshift(lead);
+        localStorage.setItem("crmw_leads", JSON.stringify(leads));
         document.getElementById("form-content").style.display = "none";
         document.getElementById("success-msg").style.display = "block";
       }
