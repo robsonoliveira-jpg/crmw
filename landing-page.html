@@ -833,15 +833,31 @@
       });
       function submitForm(e) {
         e.preventDefault();
+        const btn = e.target.querySelector("button[type=submit]");
+        btn.textContent = "Enviando...";
+        btn.disabled = true;
+
         const lead = {
           nome: document.getElementById("nome").value,
           email: document.getElementById("email").value,
           whatsapp: document.getElementById("wpp").value,
           data: new Date().toLocaleString("pt-BR")
         };
+
+        // Salva localmente como backup
         const leads = JSON.parse(localStorage.getItem("crmw_leads") || "[]");
         leads.unshift(lead);
         localStorage.setItem("crmw_leads", JSON.stringify(leads));
+
+        // Envia para Google Sheets
+        const APPS_SCRIPT_URL = "COLE_SUA_URL_AQUI";
+        fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(lead)
+        }).catch(() => {});
+
         document.getElementById("form-content").style.display = "none";
         document.getElementById("success-msg").style.display = "block";
       }

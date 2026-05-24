@@ -270,14 +270,14 @@
 
     <script>
       const SENHA = "admin123"; // ← altere para sua senha
+      const APPS_SCRIPT_URL = "COLE_SUA_URL_AQUI"; // ← mesma URL do Apps Script
 
       function login() {
         const val = document.getElementById("senha-input").value;
         if (val === SENHA) {
           document.getElementById("login-wrap").style.display = "none";
           document.getElementById("admin-panel").style.display = "block";
-          renderTabela();
-          renderStats();
+          carregarLeads();
         } else {
           document.getElementById("erro-login").textContent = "Senha incorreta.";
           document.getElementById("senha-input").value = "";
@@ -290,31 +290,42 @@
         document.getElementById("senha-input").value = "";
       }
 
-      function getLeads() {
-        return JSON.parse(localStorage.getItem("crmw_leads") || "[]");
+      let todosLeads = [];
+
+      async function carregarLeads() {
+        document.getElementById("tabela-body").innerHTML = `<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)">⏳ Carregando leads...</td></tr>`;
+        try {
+          const res = await fetch(APPS_SCRIPT_URL + "?action=get");
+          const data = await res.json();
+          todosLeads = data.leads || [];
+        } catch {
+          // fallback para localStorage
+          todosLeads = JSON.parse(localStorage.getItem("crmw_leads") || "[]");
+        }
+        renderStats();
+        renderTabela();
       }
 
       function renderStats() {
-        const leads = getLeads();
+        const leads = todosLeads;
         const hoje = new Date().toLocaleDateString("pt-BR");
         const semanaAtras = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
         document.getElementById("stat-total").textContent = leads.length;
         document.getElementById("stat-hoje").textContent = leads.filter(l => l.data && l.data.startsWith(hoje)).length;
         document.getElementById("stat-semana").textContent = leads.filter(l => {
           if (!l.data) return false;
-          const [d, m, y] = l.data.split(",")[0].split("/");
-          return new Date(`${y}-${m}-${d}`) >= semanaAtras;
+          const partes = l.data.split(",")[0].split("/");
+          return new Date(`${partes[2]}-${partes[1]}-${partes[0]}`) >= semanaAtras;
         }).length;
       }
 
       function renderTabela() {
-        const leads = getLeads();
         const q = document.getElementById("search").value.toLowerCase();
-        const filtrados = q ? leads.filter(l =>
+        const filtrados = q ? todosLeads.filter(l =>
           (l.nome||"").toLowerCase().includes(q) ||
           (l.email||"").toLowerCase().includes(q) ||
           (l.whatsapp||"").includes(q)
-        ) : leads;
+        ) : todosLeads;
 
         const hoje = new Date().toLocaleDateString("pt-BR");
         const tbody = document.getElementById("tabela-body");
@@ -339,7 +350,7 @@
       }
 
       function exportCSV() {
-        const leads = getLeads();
+        const leads = todosLeads;
         if (!leads.length) return alert("Nenhum lead para exportar.");
         const header = "Nome,Email,WhatsApp,Data";
         const rows = leads.map(l => `"${l.nome}","${l.email}","${l.whatsapp}","${l.data}"`);
